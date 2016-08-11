@@ -96,7 +96,7 @@ class DictDiffer(object):
 
 staticdir = str(read_config(BASEDIR+'/etc/config.ini','dirconf','StaticDir'))
 AppDir = str(read_config(BASEDIR+'/etc/config.ini','dirconf','AppDir'))
-last_pyyxversion = str(read_config(BASEDIR + '/etc/config.ini','versionconf','lastpyyxversion_test'))
+last_pyyxversion = str(read_config(BASEDIR + '/etc/config.ini','versionconf','lastwebsiteversion_test'))
 last_staticversion = str(read_config(BASEDIR + '/etc/config.ini','versionconf','laststatictestversion'))
 statictmpfile = str(read_config(BASEDIR + '/etc/config.ini','versionconf','statictmpfile'))
 inifile = str(read_config(BASEDIR + '/etc/config.ini','versionconf','inifile'))
@@ -197,13 +197,13 @@ if (optinfo == 'y'):
 ###################
 	os.chdir(BASEDIR+'/tmp')
 	cfg = MyParser()
-	cfg.read('version.ini')
+	cfg.read(AppDir+'/website/conf/static.ini')
 	DictA = cfg.as_dict()['common']
 #	print DictA
-	cfg.read('version2.ini')
-	DictB = cfg.as_dict()['common']
+#	cfg.read('version2.ini')
+#	DictB = cfg.as_dict()['common']
 #	print DictB
-	DIFF = DictDiffer(DictA,DictB).changed()
+#	DIFF = DictDiffer(DictA,DictB).changed()
 	os.chdir(BASEDIR)
         os.chdir(statictmpfile)
 	flist = []
@@ -218,20 +218,38 @@ if (optinfo == 'y'):
 		print 'value',DictA[key]
 		filename = DictA[key]
 		if (filename in flist and os.path.splitext(filename)[1] == '.js'):
+                        types = 'js'
 			os.chdir(BASEDIR)
         		os.chdir(statictmpfile)
 			extname = '_'+CalcMD5(filename)+'.js'
 			newname = filename.replace('.js',extname)
-			cmd = 'cp  -f '+filename+' '+newname
+			#cmd = 'cp  -f '+filename+' '+newname
+                        if (os.path.exists(BASEDIR+'/tmp/statictmpfile/compress/'+os.path.split(newname)[0])):
+                            pass
+                        else:
+                            fpath = BASEDIR+'/tmp/statictmpfile/compress/'+os.path.split(newname)[0]
+                            cmd = 'mkdir -p '+fpath
+                            os.system(cmd)
+                        cmd  = 'java -jar '+BASEDIR+javabin+' --type '+types+' --charset utf-8 '+filename+' >'+BASEDIR+'/tmp/statictmpfile/compress/'+newname    
+                        #cmd  = 'java -jar '+BASEDIR+javabin+' --type '+types+' --charset utf-8 '+filename+' >'+newname
 			os.system(cmd)
 			os.chdir(BASEDIR)
 			write_config('newstatic.ini','common',key,newname)
 		if (filename in flist and os.path.splitext(filename)[1] == '.css'):
+                        types = 'css'
 			os.chdir(BASEDIR)
         		os.chdir(statictmpfile)
 			extname = '_'+CalcMD5(filename)+'.css'
 			newname = filename.replace('.css',extname)
-			cmd = 'cp  -f '+filename+' '+newname
+			#cmd = 'cp  -f '+filename+' '+newname
+                        if (os.path.exists(BASEDIR+'/tmp/statictmpfile/compress/'+os.path.split(newname)[0])):
+                            pass
+                        else:
+                            fpath = BASEDIR+'/tmp/statictmpfile/compress/'+os.path.split(newname)[0]
+                            cmd = 'mkdir -p '+fpath
+                            os.system(cmd)
+                        cmd  = 'java -jar '+BASEDIR+javabin+' --type '+types+' --charset utf-8 '+filename+' >'+BASEDIR+'/tmp/statictmpfile/compress/'+newname    
+                        #cmd  = 'java -jar '+BASEDIR+javabin+' --type '+types+' --charset utf-8 '+filename+' >'+newname
 			os.system(cmd)
 			os.chdir(BASEDIR)
 			write_config('newstatic.ini','common',key,newname)
@@ -281,17 +299,19 @@ out = p.communicate()[0]
 pyyxcurrentversion = out.strip()
 print '''
 _____________________________________________________________________
-pyyx version info:
+website version info:
 
-	pyyx currentversion: %s
+	website currentversion: %s
 	                                          
-	pyyx last version: %s
+	website last version: %s
 _____________________________________________________________________
 ''' % (pyyxcurrentversion,pyyxlastversion)
 
 if (pyyxcurrentversion != pyyxlastversion):
 
 	#get the diff file
+        cmd = 'cp -f '+BASEDIR+'/newstatic.ini '+BASEDIR+'/tmp/pyyxtmpfile/website/conf/static.ini'
+        os.system(cmd)
 	cmd = 'git diff '+pyyxcurrentversion+' '+pyyxlastversion+' --name-only'+' '+'|'+'xargs -i  cp -rf --parents {}'+' '+BASEDIR+'/tmp/pyyxtmpfile/'
 	#print cmd
 	os.system(cmd)
