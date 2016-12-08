@@ -1,2 +1,19 @@
 开源堡垒机
 gateone
+
+nginx日志分析
+统计日志ip或状态码个数
+awk '{status[$8]+=1} END{for (code in status) print status[code],code}' prod-nginx.log|sort -nr
+
+统计日志12月8号11点02-03分ip访问情况
+grep "Dec  8 11:0[2-3]" prod-nginx.log | awk '{ips[$9]+=1} END{for(ip in ips) print ips[ip],ip}' | sort -nr
+统计日志12月8号11点02-03分访问状态码情况
+grep "Dec  8 11:0[2-3]" prod-nginx.log | awk '{ips[$8]+=1} END{for(ip in ips) print ips[ip],ip}' | sort -nr |more
+31005 200
+1908 302
+63 499
+13 400
+4 404
+
+统计日志访问小于300的状态码记录数
+awk '{ips[$8]+=1}END{for(ip in ips) if(ips[ip]<300) print ips[ip],ip}' prod-nginx.log| sort -nr
