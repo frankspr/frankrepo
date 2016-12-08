@@ -1,0 +1,55 @@
+MySQL导出的SQL语句在导入时有可能会非常非常慢，经历过导入仅45万条记录，竟用了近3个小时。在导出时合理使用几个参数，可以大大加快导入的速度。 
+
+-e 使用包括几个VALUES列表的多行INSERT语法; 
+--max_allowed_packet=XXX 客户端/服务器之间通信的缓存区的最大大小; 
+--net_buffer_length=XXX  TCP/IP和套接字通信缓冲区大小,创建长度达net_buffer_length的行 
+
+注意：max_allowed_packet和net_buffer_length不能比目标数据库的配置数值大，否则可能出错。 
+
+首先确定目标库的参数值 
+mysql>show variables like 'max_allowed_packet'; 
+mysql>show variables like 'net_buffer_length'; 
+
+根据参数值书写mysqldump命令，如： 
+mysql>mysqldump -uroot -p 数据库名  -e --max_allowed_packet=1073741824 --net_buffer_length=16384 > SQL文件 
+
+如： 
+
+mysql>mysqldump -uroot -p discuz  -e --max_allowed_packet=1048576 --net_buffer_length=16384 > discuz.sql 
+
+
+cat 1.txt |awk '{if($2>0)print $2}'|awk '{sum+=$1}END{print sum}'
+=========================
+
+新手必会用深黄色（8-15k）标记，老鸟必会深黄色+浅蓝色(15-25K)标记
+==============================================
+操作系统：Centos,Ubuntu,Redhat,suse,Freebsd
+网站服务：nginx,apache,lighttpd,php,tomcat,resin
+数据   库：MySQL,Mysql-proxy,MariaDB,PostgreSQL
+DB中间件：MyCat,atlas,cobar，amoeba,MySQL-proxy
+代理相关：lvs,keepalived,haproxy,nginx,heartbeat
+网站缓存：squid,nginx,varnish
+NOSQL库：memcached,memcachedb,MongoDB,Cassandra,redis,CouchDB
+存储相关：Nfs,Moosefs(mfs),Hadoop,glusterfs,lustre,FastDFS
+版本管理：svn,git
+监控报警：nagios,cacti,zabbix,munin,hyperic,mrtg,graphite
+域名解析：bind,powerdns,dnsmasq
+同步软件：scp,rsync,inotify,sersync,drbd,csync2,union,lsyncd
+批量管理：Ssh Key,Saltstack,expect,puppet,ansible,cfengine
+虚拟   化：kvm,xen
+云计   算：openstack,docker,cloudstack
+内网软件：iptables,zebra,iftraf,ntop,tc,iftop
+邮件软件：qmail,posfix,sendmail,zimbra
+远程拨号：openvpn,pptp,openswan,ipip
+统一认证：openldap
+队列工具：ActiveMQ,RabbitMQ,Metaq,MemcacheQ,Zeromq
+打包发布：mvn,ants,jenkins,svn
+测试软件：ab,JMeter,Webbench,LoadRunner,http_load,tcpcopy
+带宽测试：smokeping,iozone  磁盘测试 iozone
+性能测试：dd  IOPS测试 fio
+日志相关：rsyslog,Awstats,flume,storm,ELK(Elasticsearch+Logstash+Kibana)
+搜索软件：Sphinx,Xapian,Solr
+无人值守：kickstart,cobbler
+软件安装：rpm,yum（设计rpm包定制及yum仓库构建）
+大数据：HDFS,Hive,Hbase,Zookeeper,Pig,Spark,Mahout
+开发语言：Shell,Python

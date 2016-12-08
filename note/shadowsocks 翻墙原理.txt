@@ -1,0 +1,580 @@
+http://www1.miwifi.com/miwifi_download.html
+http://www1.miwifi.com/miwifi_open.html
+https://d.miwifi.com/rom/ssh?userId=616838403
+
+server=/google.com/8.8.8.8
+server=/googleusercontent.com/8.8.8.8
+server=/gstatic.com/8.8.8.8
+server=/googlehosted.com/8.8.8.8
+server=/golang.org/8.8.8.8
+server=/googleapis.com/8.8.8.8
+ipset=/google.com/letitgo
+ipset=/googleusercontent.com/letitgo
+ipset=/gstatic.com/letitgo
+ipset=/googlehosted.com/letitgo
+ipset=/golang.org/letitgo
+ipset=/googleapis.com/letitgo
+
+
+ipset -N letitgo iphash
+iptables -t nat -A PREROUTING -p tcp -m set --match-set letitgo dst -j REDIRECT --to-port 1082
+
+mount -o remount ,rw /     重新以读写挂载
+
+
+https://gist.github.com/snakevil/8a34d6fbdf2a64f2c753
+
+http://blog.berry10086.com/Tech/Openwrt/openwrt-shadowsocks-ipset/
+
+https://cokebar.info/archives/962
+
+
+
+killall ss-tunnel
+killall ss-redir
+nohup /usr/bin/ss-tunnel -c shadowsocks_tunnle.json -b 0.0.0.0 -u -l 53535 -L 8.8.8.8:53 > ss-tunnel.log 2>&1 &
+nohup /usr/bin/ss-redir -c shadowsocks.json > ss-redir.log 2>&1 &
+
+
+killall ss-tunnel
+killall ss-redir
+nohup /usr/bin/ss-tunnel -c shadowsocks_tunnle_jp2.json -b 0.0.0.0 -u -l 53535 -L 8.8.8.8:53 > ss-tunnel.log 2>&1 &
+nohup /usr/bin/ss-redir -c shadowsocks_jp2.json > ss-redir.log 2>&1 &
+
+nohup /usr/bin/ss-tunnel -c shadowsocks_tunnle_hk.json -b 0.0.0.0 -u -l 53535 -L 8.8.8.8:53 > ss-tunnel.log 2>&1 &
+nohup /usr/bin/ss-redir -c shadowsocks_hk.json > ss-redir.log 2>&1 &
+
+killall ss-tunnel
+killall ss-redir
+nohup /usr/bin/ss-tunnel -b 0.0.0.0 -c /root/ss_jp.json  -l 53535 -L 8.8.8.8:53 -u > ss-tunnel.log 2>&1 &
+nohup /usr/bin/ss-redir -c /root/ss_jp.json > ss-redir.log 2>&1 &
+
+
+/etc/init.d/dnsmasq restart
+
+
+
+
+
+nslookup 来测试 dns
+
+root@XiaoQiang:~# nslookup www.google.com
+Server:    127.0.0.1
+Address 1: 127.0.0.1
+
+Name:      www.google.com
+Address 1: 216.58.221.68
+root@XiaoQiang:~# nslookup www.baidu.com
+Server:    127.0.0.1
+Address 1: 127.0.0.1
+
+Name:      www.baidu.com
+Address 1: 115.239.210.27
+Address 2: 115.239.211.112
+root@XiaoQiang:~# nslookup www.twitter.com
+Server:    127.0.0.1
+Address 1: 127.0.0.1
+
+Name:      www.twitter.com
+Address 1: 159.106.121.75
+
+
+
+ipset -N letitgo iphash
+iptables -t nat -A PREROUTING -p tcp -m set --match-set letitgo dst -j REDIRECT --to-port 1082
+
+
+
+small dnslist
+
+
+#Google and Youtube
+server=/.google.com/127.0.0.1#1053
+server=/.google.com.hk/127.0.0.1#1053
+server=/.gstatic.com/127.0.0.1#1053
+server=/.ggpht.com/127.0.0.1#1053
+server=/.googleusercontent.com/127.0.0.1#1053
+server=/.appspot.com/127.0.0.1#1053
+server=/.googlecode.com/127.0.0.1#1053
+server=/.googleapis.com/127.0.0.1#1053
+server=/.gmail.com/127.0.0.1#1053
+server=/.google-analytics.com/127.0.0.1#1053
+server=/.youtube.com/127.0.0.1#1053
+server=/.googlevideo.com/127.0.0.1#1053
+server=/.youtube-nocookie.com/127.0.0.1#1053
+server=/.ytimg.com/127.0.0.1#1053
+server=/.blogspot.com/127.0.0.1#1053
+server=/.blogger.com/127.0.0.1#1053
+
+#FaceBook
+server=/.facebook.com/127.0.0.1#1053
+server=/.thefacebook.com/127.0.0.1#1053
+server=/.facebook.net/127.0.0.1#1053
+server=/.fbcdn.net/127.0.0.1#1053
+server=/.akamaihd.net/127.0.0.1#1053
+
+#Twitter
+server=/.twitter.com/127.0.0.1#1053
+server=/.t.co/127.0.0.1#1053
+server=/.bitly.com/127.0.0.1#1053
+server=/.twimg.com/127.0.0.1#1053
+server=/.tinypic.com/127.0.0.1#1053
+server=/.yfrog.com/127.0.0.1#1053
+
+
+
+
+
+
+dnslist
+
+server=/1-apple.com.tw/127.0.0.1#53535
+server=/247realmedia.com/127.0.0.1#53535
+server=/2mdn.net/127.0.0.1#53535
+server=/466453.com/127.0.0.1#53535
+server=/6park.com/127.0.0.1#53535
+server=/ac.playstation.net/127.0.0.1#53535
+server=/akamaihd.net/127.0.0.1#53535
+server=/android.com/127.0.0.1#53535
+server=/angrybirds.com/127.0.0.1#53535
+server=/appledaily.com.tw/127.0.0.1#53535
+server=/appspot.com/127.0.0.1#53535
+server=/asahichinese.com/127.0.0.1#53535
+server=/asiafriendfinder.com/127.0.0.1#53535
+server=/bbc.com/127.0.0.1#53535
+server=/bbc.co.uk/127.0.0.1#53535
+server=/bbci.co.uk/127.0.0.1#53535
+server=/bbcimg.co.uk/127.0.0.1#53535
+server=/bit.ly/127.0.0.1#53535
+server=/bitly.com/127.0.0.1#53535
+server=/bitshare.com/127.0.0.1#53535
+server=/blogblog.com/127.0.0.1#53535
+server=/blogger.com/127.0.0.1#53535
+server=/blogspot.com/127.0.0.1#53535
+server=/bloomberg.com/127.0.0.1#53535
+server=/bmediaasia.com/127.0.0.1#53535
+server=/brightcove.com/127.0.0.1#53535
+server=/btrd.net/127.0.0.1#53535
+server=/businessweek.com/127.0.0.1#53535
+server=/bwbx.io/127.0.0.1#53535
+server=/cddbp.net/127.0.0.1#53535
+server=/cdninstagram.com/127.0.0.1#53535
+server=/cdw.com/127.0.0.1#53535
+server=/chartbeat.net/127.0.0.1#53535
+server=/chromium.com/127.0.0.1#53535
+server=/cloudfront.net/127.0.0.1#53535
+server=/cocoapods.org/127.0.0.1#53535
+server=/co.jp/127.0.0.1#53535
+server=/com.hk/127.0.0.1#53535
+server=/com.tw/127.0.0.1#53535
+server=/conviva.com/127.0.0.1#53535
+server=/corpus4u.org/127.0.0.1#53535
+server=/cyanogenmod.org/127.0.0.1#53535
+server=/dl.playstation.net/127.0.0.1#53535
+server=/doubleclick.net/127.0.0.1#53535
+server=/dropbox.com/127.0.0.1#53535
+server=/dw.de/127.0.0.1#53535
+server=/dwnews.com/127.0.0.1#53535
+server=/dw-world.de/127.0.0.1#53535
+server=/ea.com/127.0.0.1#53535
+server=/edgesuite.net/127.0.0.1#53535
+server=/erepublik.com/127.0.0.1#53535
+server=/erepublik.net/127.0.0.1#53535
+server=/facebook.com/127.0.0.1#53535
+server=/facebook.net/127.0.0.1#53535
+server=/fbcdn.net/127.0.0.1#53535
+server=/feedburner.com/127.0.0.1#53535
+server=/fetchvideo.com/127.0.0.1#53535
+server=/flickr.com/127.0.0.1#53535
+server=/g.cn/127.0.0.1#53535
+server=/g.co/127.0.0.1#53535
+server=/ggpht.com/127.0.0.1#53535
+server=/gmail.com/127.0.0.1#53535
+server=/gmodules.com/127.0.0.1#53535
+server=/goo.gl/127.0.0.1#53535
+server=/googleadservices.com/127.0.0.1#53535
+server=/google-analytics.com/127.0.0.1#53535
+server=/googleapis.cn/127.0.0.1#53535
+server=/googleapis.com/127.0.0.1#53535
+server=/google.cn/127.0.0.1#53535
+server=/googlecode.com/127.0.0.1#53535
+server=/google.com/127.0.0.1#53535
+server=/googlecommerce.com/127.0.0.1#53535
+server=/googlelabs.com/127.0.0.1#53535
+server=/googlemail.com/127.0.0.1#53535
+server=/google.org/127.0.0.1#53535
+server=/googlesource.com/127.0.0.1#53535
+server=/googlesyndication.com/127.0.0.1#53535
+server=/googletagservices.com/127.0.0.1#53535
+server=/googleusercontent.com/127.0.0.1#53535
+server=/googlevideo.com/127.0.0.1#53535
+server=/googlezip.net/127.0.0.1#53535
+server=/gstatic.com/127.0.0.1#53535
+server=/halowaypoint.com/127.0.0.1#53535
+server=/hatena.com/127.0.0.1#53535
+server=/hkgolden.com/127.0.0.1#53535
+server=/huaren.us/127.0.0.1#53535
+server=/ign.com/127.0.0.1#53535
+server=/ignimgs.com/127.0.0.1#53535
+server=/images-amazon.com/127.0.0.1#53535
+server=/imrworldwide.com/127.0.0.1#53535
+server=/instagram.com/127.0.0.1#53535
+server=/ip.cn/127.0.0.1#53535
+server=/kakao.com/127.0.0.1#53535
+server=/keyhole.com/127.0.0.1#53535
+server=/kissyoutube.com/127.0.0.1#53535
+server=/libertytimes.com.tw/127.0.0.1#53535
+server=/live.com/127.0.0.1#53535
+server=/llnwd.net/127.0.0.1#53535
+server=/lovesphinx.tk/127.0.0.1#53535
+server=/mail-archive.com/127.0.0.1#53535
+server=/microsoft.com/127.0.0.1#53535
+server=/mingpao.com/127.0.0.1#53535
+server=/mingpaonews.com/127.0.0.1#53535
+server=/mitbbs.com/127.0.0.1#53535
+server=/mobile01.com/127.0.0.1#53535
+server=/msecnd.net/127.0.0.1#53535
+server=/msftncsi.com/127.0.0.1#53535
+server=/msgamestudios.com/127.0.0.1#53535
+server=/ne.jp/127.0.0.1#53535
+server=/neweggbusiness.com/127.0.0.1#53535
+server=/newegg.com/127.0.0.1#53535
+server=/nintendo.net/127.0.0.1#53535
+server=/nintendowifi.net/127.0.0.1#53535
+server=/nyt.com/127.0.0.1#53535
+server=/nytimes.com/127.0.0.1#53535
+server=/omtrdc.net/127.0.0.1#53535
+server=/ooyala.com/127.0.0.1#53535
+server=/openvpn.net/127.0.0.1#53535
+server=/openvpn.org/127.0.0.1#53535
+server=/origin.com/127.0.0.1#53535
+server=/pchome.com.tw/127.0.0.1#53535
+server=/pimg.tw/127.0.0.1#53535
+server=/pixanalytics.com/127.0.0.1#53535
+server=/pixfs.net/127.0.0.1#53535
+server=/pixnet.cc/127.0.0.1#53535
+server=/pixnet.net/127.0.0.1#53535
+server=/pixplug.in/127.0.0.1#53535
+server=/playstation.com/127.0.0.1#53535
+server=/playstation.net/127.0.0.1#53535
+server=/playstation.org/127.0.0.1#53535
+server=/previewshots.com/127.0.0.1#53535
+server=/privatetunnel.com/127.0.0.1#53535
+server=/revsci.net/127.0.0.1#53535
+server=/rthk.hk/127.0.0.1#53535
+server=/rthk.org.hk/127.0.0.1#53535
+server=/scanscout.com/127.0.0.1#53535
+server=/scorecardresearch.com/127.0.0.1#53535
+server=/sexinsex.net/127.0.0.1#53535
+server=/sina.com.tw/127.0.0.1#53535
+server=/slideshare.net/127.0.0.1#53535
+server=/sonyentertainmentnetwork.com/127.0.0.1#53535
+server=/sourceforge.net/127.0.0.1#53535
+server=/ssl-images-amazon.com/127.0.0.1#53535
+server=/statcounter.com/127.0.0.1#53535
+server=/staticflickr.com/127.0.0.1#53535
+server=/steamcommunity.com/127.0.0.1#53535
+server=/steampowered.com/127.0.0.1#53535
+server=/steamstatic.com/127.0.0.1#53535
+server=/surface.com/127.0.0.1#53535
+server=/t66y.com/127.0.0.1#53535
+server=/target.com/127.0.0.1#53535
+server=/t.co/127.0.0.1#53535
+server=/twimg.com/127.0.0.1#53535
+server=/twimg.edgesuite.net/127.0.0.1#53535
+server=/tw.img.nextmedia.com/127.0.0.1#53535
+server=/twitpic.com/127.0.0.1#53535
+server=/twitter.com/127.0.0.1#53535
+server=/tw.news.yahoo.com/127.0.0.1#53535
+server=/tw.rd.yahoo.com/127.0.0.1#53535
+server=/tw.yahoo.com/127.0.0.1#53535
+server=/ubi.com/127.0.0.1#53535
+server=/update.playstation.net/127.0.0.1#53535
+server=/urchin.com/127.0.0.1#53535
+server=/valvesoftware.com/127.0.0.1#53535
+server=/vimeocdn.com/127.0.0.1#53535
+server=/vimeo.com/127.0.0.1#53535
+server=/wenxuecity.com/127.0.0.1#53535
+server=/wii.com/127.0.0.1#53535
+server=/wikinet.org/127.0.0.1#53535
+server=/wikipedia.org/127.0.0.1#53535
+server=/wikkii.com/127.0.0.1#53535
+server=/wordpress.com/127.0.0.1#53535
+server=/wretch.cc/127.0.0.1#53535
+server=/xbox.com/127.0.0.1#53535
+server=/xboxlive.com/127.0.0.1#53535
+server=/xboxlive.net/127.0.0.1#53535
+server=/yimg.com/127.0.0.1#53535
+server=/youtu.be/127.0.0.1#53535
+server=/youtube.com/127.0.0.1#53535
+server=/youtubeeducation.com/127.0.0.1#53535
+server=/youtube-nocookie.com/127.0.0.1#53535
+server=/ytimg.com/127.0.0.1#53535
+server=/zinio.com/127.0.0.1#53535
+server=/zune.net/127.0.0.1#53535
+
+ipset=/1-apple.com.tw/letitgo
+ipset=/247realmedia.com/letitgo
+ipset=/2mdn.net/letitgo
+ipset=/466453.com/letitgo
+ipset=/6park.com/letitgo
+ipset=/ac.playstation.net/letitgo
+ipset=/akamaihd.net/letitgo
+ipset=/android.com/letitgo
+ipset=/angrybirds.com/letitgo
+ipset=/appledaily.com.tw/letitgo
+ipset=/appspot.com/letitgo
+ipset=/asahichinese.com/letitgo
+ipset=/asiafriendfinder.com/letitgo
+ipset=/bbc.com/letitgo
+ipset=/bbc.co.uk/letitgo
+ipset=/bbci.co.uk/letitgo
+ipset=/bbcimg.co.uk/letitgo
+ipset=/bit.ly/letitgo
+ipset=/bitly.com/letitgo
+ipset=/bitshare.com/letitgo
+ipset=/blogblog.com/letitgo
+ipset=/blogger.com/letitgo
+ipset=/blogspot.com/letitgo
+ipset=/bloomberg.com/letitgo
+ipset=/bmediaasia.com/letitgo
+ipset=/brightcove.com/letitgo
+ipset=/btrd.net/letitgo
+ipset=/businessweek.com/letitgo
+ipset=/bwbx.io/letitgo
+ipset=/cddbp.net/letitgo
+ipset=/cdninstagram.com/letitgo
+ipset=/cdw.com/letitgo
+ipset=/chartbeat.net/letitgo
+ipset=/chromium.com/letitgo
+ipset=/cloudfront.net/letitgo
+ipset=/cocoapods.org/letitgo
+ipset=/co.jp/letitgo
+ipset=/com.hk/letitgo
+ipset=/com.tw/letitgo
+ipset=/conviva.com/letitgo
+ipset=/corpus4u.org/letitgo
+ipset=/cyanogenmod.org/letitgo
+ipset=/dl.playstation.net/letitgo
+ipset=/doubleclick.net/letitgo
+ipset=/dropbox.com/letitgo
+ipset=/dw.de/letitgo
+ipset=/dwnews.com/letitgo
+ipset=/dw-world.de/letitgo
+ipset=/ea.com/letitgo
+ipset=/edgesuite.net/letitgo
+ipset=/erepublik.com/letitgo
+ipset=/erepublik.net/letitgo
+ipset=/facebook.com/letitgo
+ipset=/facebook.net/letitgo
+ipset=/fbcdn.net/letitgo
+ipset=/feedburner.com/letitgo
+ipset=/fetchvideo.com/letitgo
+ipset=/flickr.com/letitgo
+ipset=/g.cn/letitgo
+ipset=/g.co/letitgo
+ipset=/ggpht.com/letitgo
+ipset=/gmail.com/letitgo
+ipset=/gmodules.com/letitgo
+ipset=/goo.gl/letitgo
+ipset=/googleadservices.com/letitgo
+ipset=/google-analytics.com/letitgo
+ipset=/googleapis.cn/letitgo
+ipset=/googleapis.com/letitgo
+ipset=/google.cn/letitgo
+ipset=/googlecode.com/letitgo
+ipset=/google.com/letitgo
+ipset=/googlecommerce.com/letitgo
+ipset=/googlelabs.com/letitgo
+ipset=/googlemail.com/letitgo
+ipset=/google.org/letitgo
+ipset=/googlesource.com/letitgo
+ipset=/googlesyndication.com/letitgo
+ipset=/googletagservices.com/letitgo
+ipset=/googleusercontent.com/letitgo
+ipset=/googlevideo.com/letitgo
+ipset=/googlezip.net/letitgo
+ipset=/gstatic.com/letitgo
+ipset=/halowaypoint.com/letitgo
+ipset=/hatena.com/letitgo
+ipset=/hkgolden.com/letitgo
+ipset=/huaren.us/letitgo
+ipset=/ign.com/letitgo
+ipset=/ignimgs.com/letitgo
+ipset=/images-amazon.com/letitgo
+ipset=/imrworldwide.com/letitgo
+ipset=/instagram.com/letitgo
+ipset=/ip.cn/letitgo
+ipset=/kakao.com/letitgo
+ipset=/keyhole.com/letitgo
+ipset=/kissyoutube.com/letitgo
+ipset=/libertytimes.com.tw/letitgo
+ipset=/live.com/letitgo
+ipset=/llnwd.net/letitgo
+ipset=/lovesphinx.tk/letitgo
+ipset=/mail-archive.com/letitgo
+ipset=/microsoft.com/letitgo
+ipset=/mingpao.com/letitgo
+ipset=/mingpaonews.com/letitgo
+ipset=/mitbbs.com/letitgo
+ipset=/mobile01.com/letitgo
+ipset=/msecnd.net/letitgo
+ipset=/msftncsi.com/letitgo
+ipset=/msgamestudios.com/letitgo
+ipset=/ne.jp/letitgo
+ipset=/neweggbusiness.com/letitgo
+ipset=/newegg.com/letitgo
+ipset=/nintendo.net/letitgo
+ipset=/nintendowifi.net/letitgo
+ipset=/nyt.com/letitgo
+ipset=/nytimes.com/letitgo
+ipset=/omtrdc.net/letitgo
+ipset=/ooyala.com/letitgo
+ipset=/openvpn.net/letitgo
+ipset=/openvpn.org/letitgo
+ipset=/origin.com/letitgo
+ipset=/pchome.com.tw/letitgo
+ipset=/pimg.tw/letitgo
+ipset=/pixanalytics.com/letitgo
+ipset=/pixfs.net/letitgo
+ipset=/pixnet.cc/letitgo
+ipset=/pixnet.net/letitgo
+ipset=/pixplug.in/letitgo
+ipset=/playstation.com/letitgo
+ipset=/playstation.net/letitgo
+ipset=/playstation.org/letitgo
+ipset=/previewshots.com/letitgo
+ipset=/privatetunnel.com/letitgo
+ipset=/revsci.net/letitgo
+ipset=/rthk.hk/letitgo
+ipset=/rthk.org.hk/letitgo
+ipset=/scanscout.com/letitgo
+ipset=/scorecardresearch.com/letitgo
+ipset=/sexinsex.net/letitgo
+ipset=/sina.com.tw/letitgo
+ipset=/slideshare.net/letitgo
+ipset=/sonyentertainmentnetwork.com/letitgo
+ipset=/sourceforge.net/letitgo
+ipset=/ssl-images-amazon.com/letitgo
+ipset=/statcounter.com/letitgo
+ipset=/staticflickr.com/letitgo
+ipset=/steamcommunity.com/letitgo
+ipset=/steampowered.com/letitgo
+ipset=/steamstatic.com/letitgo
+ipset=/surface.com/letitgo
+ipset=/t66y.com/letitgo
+ipset=/target.com/letitgo
+ipset=/t.co/letitgo
+ipset=/twimg.com/letitgo
+ipset=/twimg.edgesuite.net/letitgo
+ipset=/tw.img.nextmedia.com/letitgo
+ipset=/twitpic.com/letitgo
+ipset=/twitter.com/letitgo
+ipset=/tw.news.yahoo.com/letitgo
+ipset=/tw.rd.yahoo.com/letitgo
+ipset=/tw.yahoo.com/letitgo
+ipset=/ubi.com/letitgo
+ipset=/update.playstation.net/letitgo
+ipset=/urchin.com/letitgo
+ipset=/valvesoftware.com/letitgo
+ipset=/vimeocdn.com/letitgo
+ipset=/vimeo.com/letitgo
+ipset=/wenxuecity.com/letitgo
+ipset=/wii.com/letitgo
+ipset=/wikinet.org/letitgo
+ipset=/wikipedia.org/letitgo
+ipset=/wikkii.com/letitgo
+ipset=/wordpress.com/letitgo
+ipset=/wretch.cc/letitgo
+ipset=/xbox.com/letitgo
+ipset=/xboxlive.com/letitgo
+ipset=/xboxlive.net/letitgo
+ipset=/yimg.com/letitgo
+ipset=/youtu.be/letitgo
+ipset=/youtube.com/letitgo
+ipset=/youtubeeducation.com/letitgo
+ipset=/youtube-nocookie.com/letitgo
+ipset=/ytimg.com/letitgo
+ipset=/zinio.com/letitgo
+ipset=/zune.net/letitgo
+server=/cloudflare.com/127.0.0.1#53535
+ipset=/cloudflare.com/letitgo
+
+
+
+DNSmsq:
+
+/tmp/etc/dnsmasq.d/
+
+
+
+
+
+iptables 随机转发：
+
+iptables端口随机转发实现简单的负载均衡
+
+发表于2015 年 8 月 12 日
+输入以下命令:
+
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8001-8002
+
+解释:通过NAT的方式吧从端口80接收到的数据随机转发到8001,8002端口
+
+注意:要使用 iptables-save > /etc/sysconfig/iptables,否则在服务重启后会丢失
+
+使用multiport可以添加多个不连接的端口，最多可以添加15组。如下
+
+-A INPUT -p tcp -m multiport –dport 21:25,135:139 -j DROP
+
+如果不使用multiport参数，只能是添加连续的端口。
+
+如-A INPUT -p tcp –dport 21:25 -j DROP
+
+而不能写成21：25，135：139
+
+
+
+
+start.sh
+
+ipset -N letitgo iphash
+iptables -t nat -A PREROUTING -p tcp -m set --match-set letitgo dst -j REDIRECT --to-port 1082
+killall ss-tunnel
+killall ss-redir
+nohup /usr/bin/ss-tunnel -b 0.0.0.0 -c /root/ss_jp.json  -l 53535 -L 8.8.8.8:53 -u > ss-tunnel.log 2>&1 &
+nohup /usr/bin/ss-redir -c /root/ss_jp.json > ss-redir.log 2>&1 &
+
+cp ./conf/ss.conf /tmp/etc/dnsmasq.d/
+/etc/init.d/dnsmasq restart
+
+
+
+opkg:
+
+http://openwrt.io/docs/miwifi/
+
+uname -a cat /etc/openwrt_release cat /etc/openwrt_version cat /proc/cpuinfo
+
+
+
+
+addDomain.sh
+
+domain=$1
+
+
+if [ x$1 == x ]
+then
+     echo "domain required";
+fi
+
+echo "" >> ./conf/ss.conf;
+echo "server=/"$domain"/127.0.0.1#53535" >> ./conf/ss.conf;
+echo "ipset=/"$domain"/letitgo" >> ./conf/ss.conf;
+
+cp ./conf/ss.conf /tmp/etc/dnsmasq.d/ss.conf
+/etc/init.d/dnsmasq restart
+echo "done";
+
+
