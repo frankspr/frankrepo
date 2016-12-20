@@ -17,3 +17,8 @@ grep "Dec  8 11:0[2-3]" prod-nginx.log | awk '{ips[$8]+=1} END{for(ip in ips) pr
 
 统计日志访问小于300的状态码记录数
 awk '{ips[$8]+=1}END{for(ip in ips) if(ips[ip]<300) print ips[ip],ip}' prod-nginx.log| sort -nr
+
+
+一键安装
+如需Debian系统的IKEV2一键安装脚本，可参考magic282童鞋的一键脚本：
+https://github.com/magic282/One-Key-L2TP-IKEV2-Setup

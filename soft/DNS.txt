@@ -1,0 +1,46 @@
+
+2016年7月14日14:08:15更新
+
+以Centos 6.5 x86的VPS为例
+=======================================
+1、执行以下命令在VPS上安装Dnsmasq：
+yum install dnsmasq -y
+yum install bind-utils
+service dnsmasq start
+
+2.设置,添加自定义DNS等..依次输入即可..
+cp /etc/resolv.conf /etc/resolv.dnsmasq.conf
+cp /etc/hosts /etc/dnsmasq.hosts
+
+echo 'nameserver 127.0.0.1' > /etc/resolv.conf
+echo 'resolv-file=/etc/resolv.dnsmasq.conf' >> /etc/dnsmasq.conf
+echo 'addn-hosts=/etc/dnsmasq.hosts' >> /etc/dnsmasq.conf
+
+echo 'nameserver 8.8.8.8' > /etc/resolv.dnsmasq.conf
+echo 'nameserver x.x.x.x' > /etc/resolv.dnsmasq.conf
+.
+.
+.
+可无限添加...
+
+3.防火墙添加规则
+nano /etc/sysconfig/iptables
+添加如下2条
+-A INPUT -p udp -m state --state NEW -m udp  --dport 53 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp  --dport 53 -j ACCEPT
+
+4.设置开机启动并启动服务
+chkconfig dnsmasq on
+/etc/init.d/dnsmasq restart
+
+执行命令：netstat -tunlp|grep 53 可以查看Dnsmasq是不是已经正常启动,结果出现dnsmasq就说明启动成功了..到这里就可以结束了.我们得到的DNS地址即你的VPS IP地址,填写到你的本地连接或者路由器里面吧.
+
+5.(可选)设置大陆常用地址走国内DNS,加快解析速度(dnsmasq-china-list)
+官网地址为:https://github.com/felixonmars/dnsmasq-china-list
+点击右下方那个"Download ZIP"下载下来ZIP包,解压,得到我们想要的3个文件即可,其他就可以删了.
+accelerated-domains.china.conf
+bogus-nxdomain.china.conf
+dnsmasq-update-china-list
+这里需要用到winscp工具.前两个文件放进/etc/dnsmasq.d/ ,最后一个扔进/usr/bin/
+最后把/etc/dnsmasq.conf文件中conf-dir=/etc/dnsmasq.d这行前面的#去掉即可.
+运行/etc/init.d/dnsmasq restart重启服务生效设置!
