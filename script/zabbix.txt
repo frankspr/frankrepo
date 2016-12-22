@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+# Security notice: This script can only be used to run scripts under /opt/pyyx/script.d.
+#
+# Valid: pyyx.get test.sh 1 2 3
+# Invalid: pyyx.get "../../../bin/ls" /
+#
+
+dir=/opt/zabbix_script/script.d
+
+shell=$(readlink -f $dir/$1)
+if [ $? -ne 0 ]; then
+    exit
+fi
+
+if [[ ! $shell =~ ^$dir ]]; then
+    echo "invalid script name: $1" >&2
+    exit
+fi
+
+$shell "${@:2}"
