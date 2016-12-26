@@ -1,0 +1,36 @@
+#!/bin/bash
+DISK=$1
+NUM=1
+FDISK=/sbin/fdisk
+MKFS=/sbin/mkfs.ext4
+CHECK_EXIST=`$FDISK -l 2> /dev/null |grep -o "$DISK"`
+[ ! "$CHECK_EXIST" ] && { echo "Error: Disk is not found !"; exit 1; }
+
+CHECK_DISK_EXIST=`$FDISK -l 2>/dev/null |grep -o "$DISK[1-9]"`
+[ ! "$CHECK_DISK_EXIST" ] || { echo "WARNING: ${CHECK_DISK_EXIST} is Partition already !"; exit 1; }
+
+$FDISK $DISK<<EOF
+n
+p
+1
+
+
+
+w
+EOF
+
+
+$MKFS $DISK$NUM
+sleep 2
+echo "$DISK$NUM /data ext4 defaults,noatime 0 0" >>/etc/fstab
+sleep 2
+mount -a
+mkdir -p /data/pyyx
+mkdir -p /data/log/nginx/
+mkdir -p /data/log/php
+tar xzf /tmp/font_ttf.tar.gz -C /data/pyyx 
+chown -R www-data:www-data /data/pyyx/
+chown -R www-data:www-data /data/log
+ifconfig eth0 mtu 1360
+/opt/php5.6/sbin/php-fpm
+/opt/nginx1.8/sbin/nginx

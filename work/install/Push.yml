@@ -1,0 +1,75 @@
+---
+- name: sync file
+  hosts: img
+  user: root
+  vars:
+    root_dir: /root/workshop
+
+  tasks:
+#    - name: sync pyyx
+#      synchronize: dest=/opt/pyyx/prod_releases src=/data/pyyx/{{pyyx_version}}
+#    - name: link 
+#      file: state=link force=true src=/opt/pyyx/prod_releases/{{pyyx_version}} dest=/opt/pyyx/prod
+#
+#     - name: copy api
+#       synchronize: dest=/opt/pyyx_api/api_releases src=/data/publish_release/api/{{api_version}}
+
+#     - name: link to api new version
+#       file: state=link force=true src=/opt/pyyx_api/api_releases/{{api_version}} dest=/opt/pyyx_api/api
+
+#     - name: copy mysql.ini
+#       synchronize: dest=/opt/pyyx_api/api/sdk/config src=/root/workshop/install/tmp/mysql.ini
+
+#     - name: copy php
+#       synchronize: dest=/opt/ src=/tmp/php5.6.tar.gz
+#
+#     - name: copy script
+#       synchronize: dest=/opt/scripts/ src=/root/workshop/install/tmp/
+#
+#     - name: sync php.ini
+#       synchronize: dest=/opt/php5.6/etc src=/root/workshop/install/tmp/php.ini
+#     - name: reload php
+#       shell: kill -USR2 `cat /run/php-fpm.pid`
+#
+#     - name: sync nginx.conf
+#       synchronize: dest=/opt/nginx1.8/conf src=/root/workshop/install/tmp/nginx.conf
+#     - name: reload nginx
+#       shell: /opt/nginx1.8/sbin/nginx -s reload
+#       
+#    - name: sync weixin file
+#      synchronize: dest=/opt/pyyx/prod/static src=/root/workshop/install/tmp/
+#
+#
+     - name: sync pyyx
+       synchronize: dest=/opt/nginx1.8/conf/conf.d src=/root/workshop/nginx/pyyx.conf
+     - name: reload nginx
+       shell: /opt/nginx1.8/sbin/nginx -s reload
+#
+#     - name: rollback pyyx.conf
+#       synchronize: dest=/opt/nginx1.8/conf/conf.d/pyyx.conf src=/root/workshop/nginx/pyyx.conf.20161110
+#     - name: reload nginx
+#       shell: /opt/nginx1.8/sbin/nginx -s reload
+#
+#       sync app.ini
+#      - name: sync website app
+#        synchronize: src=/root/workshop/install/conf/website_app.ini dest=/opt/pyyx_website/website/website/conf/app.ini
+#      - name: sync api app.ini
+#        synchronize: src=/root/workshop/install/conf/api_app.ini dest=/opt/pyyx_api/api/api/conf/app.ini
+#      - name: sync pyyx app.ini
+#        synchronize: src=/root/workshop/install/conf/pyyx_app.ini dest=/opt/pyyx/prod/conf/app.ini
+#      - name: reload php
+#        shell: kill -USR2 `cat /run/php-fpm.pid`
+
+#       TEST
+#      - name: TEST
+#        shell: "chown -R root:pyyx /tmp/1.txt"
+#        with_items:
+#          - "{{site}}"
+#        when: (item == "pre" or item == "test")
+#    - name: sync cert
+#      synchronize: dest=/opt/nginx1.8/conf/conf.d src=/root/workshop/install/sslcert/
+#      - name: sync pyyx app.ini
+#        synchronize: src=/root/workshop/install/conf/pyyx_app.ini dest=/tmp/app.ini
+#        
+#    - name: sync  file
+#      synchronize: dest=/opt/pyyx/prod/app/library/Service src=/root/workshop/install/tmp/Impression.php

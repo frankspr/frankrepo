@@ -1,0 +1,127 @@
+---
+- name: install php
+  hosts: img
+  vars:
+    root_dir: /root/workshop
+    tarballs:
+      - {name: php-5.6.7.tar.gz, dir: php-5.6.7}
+      - {name: php-yaf-yaf-2.3.3.tar.gz, dir: php-yaf-yaf-2.3.3}
+      - {name: msgpack-php-msgpack-0.5.5.tar.gz, dir: msgpack-php-msgpack-0.5.5}
+      - {name: phpredis-2.2.7.tar.gz, dir: phpredis}
+      - {name: mongo-1.6.12.tgz, dir: mongo-1.6.12}
+
+  tasks:
+    - name: install dependces
+      yum: name={{item}} state=present
+      with_items:
+        - libxml2-devel
+        - libcurl-devel.x86_64
+        - libmcrypt-devel
+        - mysql-devel
+        - bzip2-devel
+        - libpng-devel
+        - libjpeg-devel
+        - re2c
+
+    - name: copy bison 2.7
+      copy: src={{root_dir}}/install/src/php/bison-2.7.tar.gz
+            dest=/root/php5.6/
+
+    - name: extract bison 2.7
+      command: tar xf /root/php5.6/bison-2.7.tar.gz
+               chdir=/root/php5.6
+
+    - name: install bison 2.7
+      shell: ./configure && make && make install
+             chdir=/root/php5.6/bison-2.7
+
+    - name: create working dir
+      file: path=/root/php5.6
+            state=directory
+      tags: php_ext
+
+    - name: copy source code
+      copy: src={{root_dir}}/install/src/php/{{item.name}}
+            dest=/root/php5.6/
+      with_items: tarballs
+      tags: php_ext
+
+    - name: extract tarball
+      command: tar xf /root/php5.6/{{item.name}}
+               chdir=/root/php5.6
+      with_items: tarballs
+      tags: php_ext
+
+    - name: make and install php5.6
+      shell: ./configure
+             --prefix=/opt/php5.6
+             --with-config-file-path=/opt/php5.6/etc
+             --with-config-file-scan-dir=/opt/php5.6/etc/conf.d
+             --enable-opcache
+             --enable-fpm
+             --enable-sockets
+             --enable-mbstring
+             --enable-mysqlnd
+             --enable-zip
+             --with-openssl
+             --with-mcrypt
+             --with-curl
+             --with-pdo-mysql=mysqlnd
+             --with-mysqli=mysqlnd
+             --with-zlib
+             --with-bz2
+             --with-gd
+             --with-jpeg-dir
+             --with-png-dir
+             --enable-bcmath
+             --with-freetype-dir
+             --with-gettext
+             --enable-pcntl
+
+             chdir=/root/php5.6/php-5.6.7
+
+    - name: make and install
+      shell: make && make install
+             chdir=/root/php5.6/php-5.6.7
+
+    - name: make and install php ext
+      shell: /opt/php5.6/bin/phpize
+             && ./configure --with-php-config=/opt/php5.6/bin/php-config
+             && make && make install
+             chdir=/root/php5.6/{{item.dir}}
+      with_items: tarballs
+      when: item.name != "php-5.6.7.tar.gz"
+      tags: php_ext
+
+    - name: copy fpm ini
+      template: src={{root_dir}}/install/src/php/php.ini
+                dest=/opt/php5.6/etc/
+                owner=root group=root mode=0644
+
+    - name: copy fpm conf
+      template: src={{root_dir}}/install/src/php/php-fpm.conf
+                dest=/opt/php5.6/etc/
+                owner=root group=root mode=0644
+
+    - name: create ext dir
+      file: path=/opt/php5.6/etc/conf.d/
+            state=directory
+            owner=root group=root mode=0755
+
+    - name: copy ext ini
+      copy: src={{root_dir}}/install/src/php/conf.d/
+            dest=/opt/php5.6/etc/conf.d/
+            owner=root group=root mode=0644
+
+    - name: copy php-fpm
+      copy: src={{root_dir}}/install/src/php/php-fpm
+            dest=/etc/init.d/
+            owner=root group=root mode=0755
+
+    - name: clean up
+      command: rm -rf /root/php5.6
+               chdir=/root
+
+    - name: start php
+      command: /opt/php5.6/sbin/php-fpm
+

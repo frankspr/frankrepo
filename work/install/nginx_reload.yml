@@ -1,0 +1,11 @@
+---
+- name: nginx config deploy
+  hosts: nginx
+  vars:
+    root_dir: /root/workshop
+  tasks:
+    - name: copy pyyx.conf to nginx
+      copy: src={{root_dir}}/nginx/ dest=/opt/nginx1.6/conf/conf.d/
+    - name: reload nginx
+      shell: /opt/nginx1.6/sbin/nginx -s reload
+    

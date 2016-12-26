@@ -1,0 +1,9 @@
+---
+- name: add router
+  hosts: img
+  vars:
+    root_dir: /root
+
+  tasks:
+    - name: mkdir dir
+      shell: mkdir -p /opt/pyyx/pre_releases

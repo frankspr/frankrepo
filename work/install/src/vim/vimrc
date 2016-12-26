@@ -1,0 +1,14 @@
+filetype plugin indent on
+syntax on
+
+colo desert
+
+set completeopt=menu,longest
+set nocompatible                                                                                                                        
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set scrolloff=5                                                                                                                         
+set expandtab
+set ai
+

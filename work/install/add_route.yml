@@ -1,0 +1,13 @@
+---
+- name: add router
+  hosts: base
+  vars:
+    root_dir: /root
+
+  tasks:
+    - name: add route secondary
+      shell: route add -net 0.0.0.0/0 gw 10.4.31.92
+
+    - name: add route main
+      shell: route add -net 0.0.0.0/0 gw 10.4.32.133
+

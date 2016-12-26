@@ -1,0 +1,9 @@
+---
+- name: static deploy
+  hosts: "{{environ}}_static"
+  vars:
+    root_dir: /root/workshop
+    folder: "{{environ}}_releases"
+  tasks:
+    - name: sync static to oss
+      synchronize: src={{root_dir}}/static/{{environ}}_path/{{version}}/ dest=/data/static/test/

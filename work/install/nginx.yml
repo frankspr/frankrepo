@@ -1,0 +1,61 @@
+---
+- name: install nginx
+  hosts: nginx
+  vars:
+    root_dir: /root/workshop
+
+  tasks:
+    - name: apt install dependence lib
+      apt: name={{item}} state=present
+      with_items:
+        - libpcre3-dev
+        - zlib1g-dev
+        - openssl
+        - openssl-devel
+
+    - name: copy nginx1.6 tarball
+      copy: src={{root_dir}}/installation/src/nginx/nginx-1.6.2.tar.gz
+            dest=/root/nginx-1.6.2.tar.gz
+
+    - name: extract nginx1.6 tarball
+      command: tar xf /root/nginx-1.6.2.tar.gz
+               chdir=/root
+
+    - name: configure nginx source code
+      command: ./configure 
+               --prefix=/opt/nginx1.6 
+               --with-http_stub_status_module 
+               --with-http_realip_module
+               --with-http_ssl_module 
+               chdir=/root/nginx-1.6.2
+
+    - name: make install nginx1.6
+      shell: make && make install
+             chdir=/root/nginx-1.6.2
+
+    - name: create nginx conf.d dir
+      file: path=/opt/nginx1.6/conf/conf.d
+            state=directory
+            owner=root group=root mode=0644
+
+    - name: copy nginx
+      copy: dest=/opt/nginx1.6/conf/nginx.conf
+            src={{root_dir}}/installation/src/nginx/nginx.conf
+
+    - name: create nginx log dir
+      file: path=/var/log/nginx
+            state=directory
+            owner=root group=root mode=0644
+
+    - name: copy nginx logrotate conf
+      copy: src={{root_dir}}/installation/src/nginx/logrotate.conf
+            dest=/etc/logrotate.d/nginx
+            owner=root group=root mode=0644
+
+    - name: clean up
+      command: rm -rf /root/nginx-1.6.2 /root/nginx-1.6.2.tar.gz
+               chdir=/root
+
+    - name: start nginx
+      command: /opt/nginx1.6/sbin/nginx
+

@@ -1,0 +1,14 @@
+---
+- name: push pyyx.conf
+  hosts: img
+  vars:
+    root_dir: /root/workshop
+
+  tasks:
+
+    - name: copy pyyx.conf 
+      copy: dest=/opt/nginx1.8/conf/conf.d
+            src={{root_dir}}/nginx/pyyx.conf
+    - name: reload nginx
+      shell: /opt/nginx1.8/sbin/nginx -s reload
+
