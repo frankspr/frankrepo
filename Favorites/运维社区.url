@@ -1,0 +1,9 @@
+[DEFAULT]
+BASEURL=https://www.unixhot.com/
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,11
+[InternetShortcut]
+URL=https://www.unixhot.com/
+IDList=
+IconFile=https://www.unixhot.com/static/css/default/img/favicon.ico?v=20151125
+IconIndex=1

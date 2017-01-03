@@ -1,0 +1,9 @@
+[DEFAULT]
+BASEURL=https://openresty.org/download/agentzh-nginx-tutorials-zhcn.html
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,11
+[InternetShortcut]
+URL=https://openresty.org/download/agentzh-nginx-tutorials-zhcn.html
+IDList=
+IconFile=https://openresty.org/favicon.ico
+IconIndex=1

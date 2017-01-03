@@ -1,0 +1,9 @@
+[DEFAULT]
+BASEURL=http://routerboard.com/RB2011iLS-IN
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,2
+[InternetShortcut]
+URL=http://routerboard.com/RB2011iLS-IN
+IDList=
+IconFile=http://routerboard.com/img/favicon.png
+IconIndex=1

@@ -1,0 +1,18 @@
+[DEFAULT]
+BASEURL=http://support.huawei.com/enterprise/docinforeader.action?contentId=DOC1000039152&partNo=10082
+[DOC_keepSessionIframe]
+BASEURL=http://support.huawei.com/enterprise/only4ssoTimeUpdate.do?t=Mon Apr 18 2016 15:47:14 GMT+0800 (中国标准时间)
+ORIGURL=/enterprise/only4ssoTimeUpdate.do?t=Mon Apr 18 2016 15:47:14 GMT+0800 (中国标准时间)
+[DOC_keepSessionIframe.A]
+BASEURL=http://support.huawei.com/enterprise/only4ssoTimeUpdate.do?t=Mon Apr 18 2016 15:47:14 GMT+0800 (中国标准时间)
+ORIGURL=/enterprise/only4ssoTimeUpdate.do?t=Mon Apr 18 2016 15:47:14 GMT+0800 (中国标准时间)
+[DOC_keepSessionIframe.W]
+BASEURL=http://support.huawei.com/enterprise/only4ssoTimeUpdate.do?t+AD0-Mon Apr 18 2016 15:47:14 GMT+-0800 (+Ti1W/WgHUcZl9pX0-)
+ORIGURL=/enterprise/only4ssoTimeUpdate.do?t+AD0-Mon Apr 18 2016 15:47:14 GMT+-0800 (+Ti1W/WgHUcZl9pX0-)
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,2
+[InternetShortcut]
+URL=http://support.huawei.com/enterprise/docinforeader.action?contentId=DOC1000039152&partNo=10082
+IDList=
+IconFile=http://support.huawei.com/enterprise/favicon.ico
+IconIndex=1

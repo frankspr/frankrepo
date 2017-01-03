@@ -1,0 +1,9 @@
+[DEFAULT]
+BASEURL=http://test.pyyx.com/admin/chat/userfeedbackdetail?chat_id=73139&
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,2
+[InternetShortcut]
+URL=http://test.pyyx.com/admin/chat/userfeedbackdetail?chat_id=73139&#replay
+IDList=
+IconFile=http://test.pyyx.com/favicon.ico
+IconIndex=1

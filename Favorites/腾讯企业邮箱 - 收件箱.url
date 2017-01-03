@@ -1,0 +1,12 @@
+[DEFAULT]
+BASEURL=http://exmail.qq.com/cgi-bin/frame_html?sid=svcurmBi3srBsi55,7&r=3fcb57eb41eca288ea98e16046f42273
+[DOC_mainFrame]
+BASEURL=http://set1.exmail.qq.com/cgi-bin/mail_list?sid=svcurmBi3srBsi55,7&folderid=1&page=0&s=inbox&loc=folderlist,,,1
+ORIGURL=/cgi-bin/today?sid=svcurmBi3srBsi55,7&nocheckframe=true
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,2
+[InternetShortcut]
+URL=http://exmail.qq.com/cgi-bin/frame_html?sid=svcurmBi3srBsi55,7&r=3fcb57eb41eca288ea98e16046f42273
+IDList=
+IconFile=http://exmail.qq.com/favicon.ico
+IconIndex=1
