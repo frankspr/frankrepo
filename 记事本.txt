@@ -19,6 +19,9 @@ grep "Dec  8 11:0[2-3]" prod-nginx.log | awk '{ips[$8]+=1} END{for(ip in ips) pr
 awk '{ips[$8]+=1}END{for(ip in ips) if(ips[ip]<300) print ips[ip],ip}' prod-nginx.log| sort -nr
 
 
+=======
+sed -i "s/\(mode=\)\S\S*/\1HIGH/" aa.txt 
+
 一键安装
 如需Debian系统的IKEV2一键安装脚本，可参考magic282童鞋的一键脚本：
 https://github.com/magic282/One-Key-L2TP-IKEV2-Setup
@@ -199,3 +202,20 @@ lblcwr 带复制的基于局部最少连接
 dh 目标地址散列
 sh 原地址散列
 详细链接http://www.linuxvirtualserver.org/zh/lvs1.html
+
+=============
+ 本文只是利用iptables的recent模块来抵御简单的DOS攻击。下面以限制ssh远程连接为例，具体步骤如下：
+  （1）#iptables -I INPUT -p tcp --dport 22 -m connlimit --connlimit-above 3 -j DROP
+  （2）#iptables -I INPUT  -p tcp --dport 22 -m state --state NEW -m recent --set --name SSH
+  （3）#iptables -I INPUT  -p tcp --dport 22 -m state --state NEW -m recent --update --seconds  300 --hitcount 3 --name SSH -j DROP
+  以上三条规则的解释如下：
+  1.利用connlimit模块将单IP的并发设置为3；会误杀使用NAT上网的用户，可以根据实际情况增大该值；
+  2.利用recent和state模块限制单IP在300s内只能与本机建立3个新连接。被限制一分钟后即可恢复访问。 
+  3.第一句是记录访问tcp 22端口的新连接，记录名称为SSH
+   --set 记录数据包的来源IP，如果IP已经存在将更新已经存在的条目
+  4.第三句是指SSH记录中的IP，300s内发起超过3次连接则拒绝此IP的连接。
+   --update 是指每次建立连接都更新列表；
+   --seconds必须与--update同时使用
+   --hitcount必须与--update同时使用
+  5.可以使用下面的这句记录日志：
+   iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --name SSH --second 300 --hitcount 3 -j LOG --log-prefix "SSH Attack"
