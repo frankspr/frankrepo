@@ -20,7 +20,18 @@ awk '{ips[$8]+=1}END{for(ip in ips) if(ips[ip]<300) print ips[ip],ip}' prod-ngin
 
 
 =======
+修改值
 sed -i "s/\(mode=\)\S\S*/\1HIGH/" aa.txt 
+替换字段 删除空行
+sed -i 's/pre/test/g' test.txt && sed -i '/^$/d' test.txt
+显示匹配内容的前后n行
+grep -3 "string" test.txt 或 grep -C 1 "get(self)" torna.py
+显示匹配内容的后n行
+grep -A 5 "get(self)" torna.py
+前n行
+grep -B 5 "get(self)" torna.py
+
+
 
 一键安装
 如需Debian系统的IKEV2一键安装脚本，可参考magic282童鞋的一键脚本：
@@ -219,3 +230,8 @@ sh 原地址散列
    --hitcount必须与--update同时使用
   5.可以使用下面的这句记录日志：
    iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --name SSH --second 300 --hitcount 3 -j LOG --log-prefix "SSH Attack"
+端口转发
+iptables -t nat -A PREROUTING -p tcp -i eth0 -d 10.100.0.55 --dport 3030 -j DNAT --to 10.100.0.55:22
+
+iptables -A INPUT -p tcp -s 10.100.0.55 --dport 22 -j ACCEPT
+
