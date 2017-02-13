@@ -7,7 +7,7 @@ from aliyunsdkcore import client
 from aliyunsdkslb.request.v20140515.DescribeLoadBalancerAttributeRequest import DescribeLoadBalancerAttributeRequest
 from aliyunsdkecs.request.v20140526 import DescribeInstancesRequest
 
-clt = client.AcsClient('tablBShBzl4KNW0R', 'ag3ya5SaJjGXHS5QO66JxahzDtUTFN', 'cn-hangzhou')
+clt = client.AcsClient('tablBShBzl4KNW0R', 'ag3ya5SaJjGXHS5QO66JxahzDtUTFN.huang', 'cn-hangzhou')
 lb_id = '152b60fc1da-cn-hangzhou-dg-a01'
 
 def get_ecs_info():

@@ -58,7 +58,7 @@ def Request_aliyunapi_getusage(InId,Action,Key,Opt):
     totalrecordcount = 0
     try:
         clt = client.AcsClient('tablBShBzl4KNW0R',\
-        'ag3ya5SaJjGXHS5QO66JxahzDtUTFN','cn-hangzhou')
+        'ag3ya5SaJjGXHS5QO66JxahzDtUTFNdeng','cn-hangzhou')
         request=DescribeRegionsRequest.DescribeRegionsRequest()
         request.set_accept_format('json')
         request.set_action_name(Action)
