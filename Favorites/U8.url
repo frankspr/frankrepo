@@ -1,9 +1,0 @@
-[DEFAULT]
-BASEURL=http://u8.classba.com.cn/u8sl/Login.aspx
-[{000214A0-0000-0000-C000-000000000046}]
-Prop3=19,2
-[InternetShortcut]
-URL=http://u8.classba.com.cn/u8sl/Login.aspx
-IDList=
-IconFile=http://u8.classba.com.cn/u8sl/resources/themes/images/default/U8.ico
-IconIndex=1

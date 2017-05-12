@@ -1,9 +1,0 @@
-[DEFAULT]
-BASEURL=https://sixther.me/send-monitor-data-with-zabbix_sender.html
-[{000214A0-0000-0000-C000-000000000046}]
-Prop3=19,11
-[InternetShortcut]
-URL=https://sixther.me/send-monitor-data-with-zabbix_sender.html
-IDList=
-IconFile=https://sixther.me/wp-content/uploads/2015/12/blog_icon-1.png
-IconIndex=1
